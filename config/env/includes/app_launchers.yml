@@ -182,7 +182,7 @@ launch_nuke:
   mac_path: '@nuke_mac'
   menu_name: Launch Nuke
   versions: []
-  windows_args: ''
+  windows_args: '-nukex'
   windows_path: '@nuke_windows'
 #
 # -------------------------------------------------
