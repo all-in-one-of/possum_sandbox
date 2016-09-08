@@ -244,6 +244,13 @@ def remove_sgtk_disabled_menu():
 g_last_message_time = 0
 
 
+def _custom_system_paths():
+    """
+    Add a custom path to maya
+    """
+    sys.path.append(r"\\productions\boad\Pipeline\tools\maya")
+
+
 class MayaEngine(tank.platform.Engine):
     """
     Toolkit engine for Maya.
@@ -322,6 +329,9 @@ class MayaEngine(tank.platform.Engine):
 
         # add qt paths and dlls
         self._init_pyside()
+
+        # add custom system paths
+        _custom_system_paths()
 
         # default menu name is Shotgun but this can be overriden
         # in the configuration to be Sgtk in case of conflicts
