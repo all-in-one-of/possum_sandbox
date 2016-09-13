@@ -50,3 +50,8 @@ Temporary Items
 # Compiler Files
 .pyc
 
+install/app_store/tk-framework-qtwidgets/v2.4.3/framework.pyc
+install/app_store/tk-framework-qtwidgets/v2.4.3/python/activity_stream/activity_stream.pyc
+install/app_store/tk-framework-qtwidgets/v2.4.3/framework.pyc
+install/app_store/tk-framework-qtwidgets/v2.4.3/framework.pyc
+*.pyc
