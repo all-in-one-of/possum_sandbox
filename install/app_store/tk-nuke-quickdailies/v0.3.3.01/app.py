@@ -28,24 +28,24 @@ PNG_THUMB_SEQUENCE_MARKER = "%08d"
 
 
 class NukeQuickDailies(tank.platform.Application):
-    
+
     def init_app(self):
         """
         Called as the application is being initialized
         """
-        
+
         # assign this app to nuke handle so that the node
         # callback finds it
         nuke.tk_nuke_quickdailies = self
-        
+
         self._movie_template = self.get_template("movie_template")
         self._snapshot_template = self.get_template("current_scene_template")
         self._version_template = self.get_template("sg_version_name_template")
-        
+
         # add to tank menu
         icon = os.path.join(self.disk_location, "resources", "node_icon.png")
-        self.engine.register_command("Shotgun Quick Dailies", 
-                                      self.create_node, 
+        self.engine.register_command("Shotgun Quick Dailies",
+                                      self.create_node,
                                       {"type": "node", "icon": icon})
 
     @property
@@ -82,7 +82,7 @@ class NukeQuickDailies(tank.platform.Application):
         returns the first frame for this session
         """
         return int(nuke.root()["first_frame"].value())
-        
+
     def _get_last_frame(self):
         """
         returns the last frame for this session
@@ -93,51 +93,70 @@ class NukeQuickDailies(tank.platform.Application):
         """
         Sets up slates and burnins
         """
-        
+
         # set the fonts for all text fields
         font = os.path.join(self.disk_location, "resources", "liberationsans_regular.ttf")
         font = font.replace(os.sep, "/")
         group_node.node("top_left_text")["font"].setValue(font)
+        group_node.node("top_center_text")["font"].setValue(font)
         group_node.node("top_right_text")["font"].setValue(font)
         group_node.node("bottom_left_text")["font"].setValue(font)
-        group_node.node("framecounter")["font"].setValue(font)
+        group_node.node("bottom_right_text")["font"].setValue(font)
+        group_node.node("bottom_center_text_on")["font"].setValue(font)
+        group_node.node("bottom_center_text_off")["font"].setValue(font)
         group_node.node("slate_info")["font"].setValue(font)
-        
+
         # get some useful data
-        
+
         # date -- format '23 Jan 2012' is universally understood.
         today = datetime.date.today()
         date_formatted = today.strftime("%d %b %Y")
-        
+
         # current user
         user_data = tank.util.get_current_user(self.tank)
         if user_data is None:
             user_name = "Unknown User"
         else:
-            user_name = user_data.get("name", "Unknown User")        
-                
-        # format the burnins  
-        
-        # top-left says 
-        # Project XYZ
-        # Shot ABC
-        top_left = "%s\n%s %s" % (self.context.project["name"], 
-                                  self.context.entity["type"], 
+            user_name = user_data.get("name", "Unknown User")
+
+        # format the burnins
+
+        # top-left says
+        # Shot XYZ
+        # Step or Task???
+        top_left = "%s: %s\n" % (self.context.entity["type"],
                                   self.context.entity["name"])
+        if self.context.task:
+            top_left += "Task: %s" % self.context.task["name"]
+        elif self.context.step:
+            top_left += "Step: %s" % self.context.step["name"]
         group_node.node("top_left_text")["message"].setValue(top_left)
-        
-        # top-right has date
-        group_node.node("top_right_text")["message"].setValue(date_formatted)
-        
+
+        # top-center says
+        # Project XYZ
+        top_center = "%s" % (self.context.project["name"])
+        group_node.node("top_center_text")["message"].setValue(top_center)
+
+        # top-right has Name and Date
+        name_date = "%s\n" % user_name
+        name_date += "%s\n" % date_formatted
+        group_node.node("top_right_text")["message"].setValue(name_date)
+
         # bottom left says
         # Name#increment
-        # User
-        bottom_left = "%s " % name.capitalize() if name else ""
-        bottom_left += ("Iteration %d\n" % (iteration))
-        bottom_left += user_name
+        #bottom_left = "%s: " % name.capitalize() if name else ""
+        bottom_left = '[file rootname [file tail [value root.name]]]\n'
+        bottom_left += ("Quickdaily No: %d" % (iteration))
         group_node.node("bottom_left_text")["message"].setValue(bottom_left)
-                
-        # and the slate
+
+        # bottom right says
+        # Framecounter (Using Nuke TCL Script to set the framecounter)
+        # Frame Range
+        bottom_right = '[format %04d [frame]]\n'
+        bottom_right += "Frames: %s - %s" % (self._get_first_frame(), self._get_last_frame())
+        group_node.node("bottom_right_text")["message"].setValue(bottom_right)
+
+        # and the slate (Not currently used)
         slate_str =  "Project: %s\n" % self.context.project["name"]
         slate_str += "%s: %s\n" % (self.context.entity["type"], self.context.entity["name"])
         if name:
@@ -163,11 +182,11 @@ class NukeQuickDailies(tank.platform.Application):
         """
 
         # setup quicktime output resolution
-        width = self.get_setting("width", 1024)
-        height = self.get_setting("height", 540)        
-        mov_reformat_node = group_node.node("mov_reformat")
-        mov_reformat_node["box_width"].setValue(width)
-        mov_reformat_node["box_height"].setValue(height)
+        # width = self.get_setting("width", 1024)
+        # height = self.get_setting("height", 540)
+        # mov_reformat_node = group_node.node("mov_reformat")
+        # mov_reformat_node["box_width"].setValue(width)
+        # mov_reformat_node["box_height"].setValue(height)
         
         # setup output png path
         png_out = group_node.node("png_writer")
@@ -178,11 +197,13 @@ class NukeQuickDailies(tank.platform.Application):
         mov_out = group_node.node("mov_writer")
         mov_path = mov_path.replace(os.sep, "/")
         mov_out["file"].setValue(mov_path)
-        
+
+        # MDS - Disabled codec settings. Defined in Gizmo now instead
+
         # apply the Write node codec settings we'll use for generating the Quicktime
-        self.execute_hook_method("codec_settings_hook", 
-                                 "get_quicktime_settings",
-                                 write_node=mov_out)
+        # self.execute_hook_method("codec_settings_hook",
+        #                          "get_quicktime_settings",
+        #                          write_node=mov_out)
 
         # turn on the nodes        
         mov_out.knob('disable').setValue(False)

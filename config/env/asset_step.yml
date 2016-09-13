@@ -1089,9 +1089,9 @@ engines:
         version_compare_ignore_fields: []
       tk-nuke-quickdailies:
         current_scene_template: nuke_asset_work
-        height: 768
+        height: 540
         location:
-          version: v0.3.3
+          version: v0.3.3.01
           type: app_store
           name: tk-nuke-quickdailies
         movie_template: asset_quicktime_quick
