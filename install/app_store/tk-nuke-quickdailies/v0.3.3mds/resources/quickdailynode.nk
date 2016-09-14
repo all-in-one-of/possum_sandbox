@@ -15,15 +15,14 @@ define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
                     <page id="Viewer.1"/>
                 </dock>
                 <split size="401"/>
-                <dock id="" activePageId="DAG.2" focus="true">
+                <dock id="" activePageId="DAG.1">
                     <page id="DAG.1"/>
                     <page id="Curve Editor.1"/>
                     <page id="DopeSheet.1"/>
-                    <page id="DAG.2"/>
                 </dock>
             </splitter>
             <split size="615"/>
-            <dock id="" activePageId="Properties.1">
+            <dock id="" activePageId="Properties.1" focus="true">
                 <page id="Properties.1"/>
             </dock>
         </splitter>
@@ -32,15 +31,13 @@ define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
 }
 Root {
  inputs 0
- name //productions/boad/Pipeline/BAD16073/possum_sandbox/install/app_store/tk-nuke-quickdailies/v0.3.3/resources/quickdailynode.nk
+ name //productions/boad/Pipeline/BAD16073/possum_sandbox/install/app_store/tk-nuke-quickdailies/v0.3.3mds/resources/quickdailynode.nk
  frame 991
  first_frame 991
  last_frame 1252
  lock_range true
- format "1280 720 0 0 1280 720 1 HD_720"
+ format "2048 1080 0 0 2048 1080 1 2K_DCP"
  proxy_format "1280 720 0 0 1280 720 1 HD_720"
- defaultViewerLUT "OCIO LUTs"
- OCIO_config aces
  addUserKnob {20 mariTab l Mari}
  addUserKnob {26 cmdStatus l "listen status" t "The status of Nuke's command port" T <b>Disabled</b>}
  addUserKnob {26 sendStatus l "send status" t "The status of Nuke's connection to Mari" T <b>Inactive</b>}
@@ -66,44 +63,36 @@ Root {
 Group {
  inputs 0
  name ShotgunQuickDaily
+ tile_color 0xffbf00ff
+ label "v3.3 MDS Edition"
  note_font Verdana
  selected true
  xpos -40
- ypos -491
+ ypos -578
  mapsize {0.15 0.15}
  addUserKnob {20 tanktab l "Shotgun Quick Daily"}
- addUserKnob {26 burninDescription l "" +STARTLINE T "Please select the type of burnin your require. \n\nShot - Uses our standard font size and film gate.\nAsset - Uses a smaller font size and no gate.\n"}
+ addUserKnob {26 version l "" +STARTLINE T "MDS Quick Daily Tool v3.3 - MDS Edition"}
  addUserKnob {26 ""}
- addUserKnob {26 burninType l "" +STARTLINE T "BURNIN TYPE"}
+ addUserKnob {26 burninDescription l "" +STARTLINE T "INSTRUCTIONS\nPlease select the type of burnin your require. \n\nShot - Uses our standard font size and film gate.\nAsset - Uses a smaller font size and no gate.\n\nFor Comp review please deliver dailies in Cineon colour space. \n"}
+ addUserKnob {26 ""}
+ addUserKnob {26 burninType l "" +STARTLINE T SETUP}
  addUserKnob {4 burninOption l "Burnin Option" M {Shot Asset ""}}
+ addUserKnob {4 gateBlur l "Gate Blur" M {On Off ""}}
  addUserKnob {4 format l Format M {"half 2K DCP ( 1024 x 540 )" "2K DCP ( 2048 x 1080 )" "720P ( 1280 x 720 )" "1080P (1920 x 1080 )" "" "" "" "" ""}}
+ addUserKnob {4 colourspace l Colourspace t "sRGB  -  normal picture viewing\nCineon - Extended range for Comp Review\nHSV - Diagnostic colourspace" M {sRGB Cineon HSV "" ""}}
  addUserKnob {26 ""}
  addUserKnob {26 taskStatesTitle l "" +STARTLINE T "TASK STATES"}
  addUserKnob {4 animState l "Animation State" M {None Blocking Spline}}
  addUserKnob {26 ""}
- addUserKnob {26 Audio l "" +STARTLINE T "\nAUDIO"}
+ addUserKnob {26 Audio l "" +STARTLINE T AUDIO}
  addUserKnob {41 mov32_audiofile l "audio file" T mov_writer.mov32_audiofile}
  addUserKnob {41 mov32_audio_offset l "audio offset" T mov_writer.mov32_audio_offset}
  addUserKnob {26 ""}
+ addUserKnob {26 ""}
  addUserKnob {22 doit l "Create Quick Daily" T "# have to gracefully support the case when \n# Sgtk is not in the system at all or when \n# running an incompatible version of Sgtk.\nimport nuke\ntry:\n  app = nuke.tk_nuke_quickdailies\n  fn = app.create_daily_v1\nexcept Exception, e:\n  nuke.warning(\"Could not render Shotgun Quickdaily! Most likely Sgtk is not currently active. Message: %s\" % e)\nelse:\n  fn(nuke.thisNode())\n\n" +STARTLINE}
- addUserKnob {26 ButonDescription l "" +STARTLINE T "\nClicking the above button will:\n\n1. Create a quicktime\n2. Place it in the correct location on disk\n3. Send it to Shotgun ready for review"}
+ addUserKnob {26 ButonDescription l "" +STARTLINE T "\nClicking the above button will:\n\n1. Create a quicktime\n2. Place it in the correct location on disk\n3. Send it to Shotgun ready for review (Currently not uploading!)"}
  addUserKnob {26 ""}
 }
- Text2 {
-  inputs 0
-  font_size_toolbar 100
-  font_width_toolbar 100
-  font_height_toolbar 100
-  transforms {{0 2}
-    }
-  center {640 360}
-  group_animations {{0} imported: 0 selected: 0 items: "root transform/"}
-  animation_layers {{1 11 640 360 0 0 1 1 0 0 0 0}
-    }
-  name Text1
-  xpos 1560
-  ypos -379
- }
  NoOp {
   inputs 0
   name burnInCtrl
@@ -120,14 +109,14 @@ Group {
  Input {
   inputs 0
   name Input1
-  xpos 278
-  ypos -2094
+  xpos 280
+  ypos -2491
  }
-set N36a0800 [stack 0]
+set N3740800 [stack 0]
  Dot {
   name Dot3
-  xpos 633
-  ypos -2093
+  xpos 634
+  ypos -2486
  }
  Dot {
   name Dot2
@@ -141,7 +130,7 @@ set N36a0800 [stack 0]
   xpos -201
   ypos -2039
  }
-set N36a1000 [stack 0]
+set N3741000 [stack 0]
  Reformat {
   format "1920 1080 0 0 1920 1080 1 HD_1080"
   name Reformat2
@@ -149,15 +138,15 @@ set N36a1000 [stack 0]
   xpos -41
   ypos -1862
  }
- set C36a0c00 [stack 0]
-set N36a0c00 [stack 0]
+ set C3740c00 [stack 0]
+set N3740c00 [stack 0]
  Dot {
   name Dot8
   xpos -6
   ypos -1769
  }
-push $N36a0c00
-push $N36a1000
+push $N3740c00
+push $N3741000
  Reformat {
   format "2048 1080 0 0 2048 1080 1 2K_DCP"
   name Reformat4
@@ -165,9 +154,9 @@ push $N36a1000
   xpos -361
   ypos -1863
  }
- set C4a311800 [stack 0]
-set N4a311800 [stack 0]
-push $N4a311800
+ set C3767000 [stack 0]
+set N3767000 [stack 0]
+push $N3767000
  Dot {
   name Dot5
   xpos -326
@@ -180,7 +169,7 @@ push $N4a311800
   xpos -201
   ypos -1694
  }
- set C508c8000 [stack 0]
+ set C3766400 [stack 0]
  FormatCrop {
   name LINE
   label "\[value presets]"
@@ -194,64 +183,97 @@ push $N4a311800
   xpos -168
   ypos -1370
  }
-push $N36a0800
+push $N3740800
+ Colorspace {
+  colorspace_out HSV
+  name HSV
+  xpos 443
+  ypos -2331
+ }
+push $N3740800
+ Colorspace {
+  colorspace_out Cineon
+  name Cineon
+  xpos 283
+  ypos -2331
+ }
+push $N3740800
+ Colorspace {
+  name sRGB
+  xpos 123
+  ypos -2331
+ }
+ Switch {
+  inputs 3
+  which {{parent.colourspace}}
+  name Switch3
+  xpos 283
+  ypos -2171
+ }
  Remove {
   channels alpha
   name Remove1
   xpos 278
   ypos -2023
  }
-set N1f4c9000 [stack 0]
-clone $C36a0c00 {
+set N21574c00 [stack 0]
+clone $C3740c00 {
   xpos 439
   ypos -1862
   selected false
  }
-set N1f4c8c00 [stack 0]
+set N21574800 [stack 0]
  Dot {
   name Dot12
   xpos 474
   ypos -1769
  }
-push $N1f4c8c00
-push $N1f4c9000
-clone $C4a311800 {
+push $N21574800
+push $N21574c00
+clone $C3767000 {
   xpos 119
   ypos -1862
   selected false
  }
-set N4a310000 [stack 0]
-push $N4a310000
+set N215abc00 [stack 0]
+push $N215abc00
  Dot {
   name Dot9
   xpos 153
   ypos -1769
  }
-clone $C508c8000 {
+clone $C3766400 {
   inputs 4
   xpos 279
   ypos -1693
   selected false
  }
-set N46bf9800 [stack 0]
+set N215ab000 [stack 0]
+push $N215ab000
  FormatCrop {
   name BAR1
   label "\[value presets]"
   xpos 440
-  ypos -1619
+  ypos -1699
   outputview solid
   multiply {0 0 0 0}
   value 1
  }
-push $N46bf9800
+push $N215ab000
  Blur {
   inputs 1+1
   size 18
   filter quadratic
   name Blur1
-  selected true
-  xpos 278
+  xpos 440
   ypos -1539
+ }
+ Switch {
+  inputs 2
+  which {{parent.gateBlur}}
+  name Switch4
+  xpos 278
+  ypos -1531
  }
  FormatCrop {
   name BAR
@@ -335,7 +357,7 @@ push $N46bf9800
   xpos 918
   ypos -811
  }
-set N217e6800 [stack 0]
+set N24908c00 [stack 0]
  Text {
   message "\n\nAnim State - Splining"
   font C:/Windows/Fonts/arial.ttf
@@ -353,7 +375,7 @@ set N217e6800 [stack 0]
   xpos 1078
   ypos -651
  }
-push $N217e6800
+push $N24908c00
  Text {
   message "\n\nAnim State - Blocking"
   font C:/Windows/Fonts/arial.ttf
@@ -371,7 +393,7 @@ push $N217e6800
   xpos 918
   ypos -651
  }
-push $N217e6800
+push $N24908c00
  Text {
   message "\n\nNo Task State"
   font C:/Windows/Fonts/arial.ttf
@@ -396,7 +418,7 @@ push $N217e6800
   xpos 918
   ypos -491
  }
-set N2181a800 [stack 0]
+set N27b14c00 [stack 0]
  Text {
   message "\[value parent.format] (RRT Enabled)\n"
   font C:/Windows/Fonts/arial.ttf
@@ -414,7 +436,7 @@ set N2181a800 [stack 0]
   xpos 598
   ypos -491
  }
-push $N2181a800
+push $N27b14c00
  Text {
   message "\[value parent.format]\n"
   size {{burnInCtrl.fontsize}}
@@ -457,27 +479,27 @@ push $N2181a800
   gamma 0.45
   rotate 137
   name ColorWheel1
-  xpos -383
-  ypos -674
+  xpos -360
+  ypos -675
  }
  Reformat {
   type "to box"
   box_width 300
   name Reformat1
-  xpos -383
-  ypos -570
+  xpos -360
+  ypos -571
  }
  Transform {
   translate {100 100}
   name Transform
-  xpos -383
-  ypos -490
+  xpos -360
+  ypos -491
  }
  Constant {
   inputs 0
   name slate_base
-  xpos -703
-  ypos -674
+  xpos -680
+  ypos -675
  }
  Text {
   message ""
@@ -487,18 +509,18 @@ push $N2181a800
   Transform 1
   box {300 {"(\[value root.height]/2)-500"} 1800 1389}
   name slate_info
-  xpos -703
-  ypos -490
+  xpos -680
+  ypos -491
  }
  Merge {
   inputs 2
   name slate_merge
-  xpos -543
-  ypos -330
+  xpos -520
+  ypos -331
  }
  Dot {
   name Dot4
-  xpos -507
+  xpos -486
   ypos -6
  }
  Switch {
@@ -510,52 +532,48 @@ push $N2181a800
   xpos 280
   ypos -19
  }
-set N239a4800 [stack 0]
+set N27b80800 [stack 0]
  Reformat {
   type "to box"
   box_width 1920
   box_height 1080
   box_fixed true
-  resize fill
   black_outside true
   name mov_1080
   tile_color 0xad75ffff
   xpos 440
   ypos 149
  }
-push $N239a4800
+push $N27b80800
  Reformat {
   type "to box"
   box_width 1280
   box_height 720
   box_fixed true
-  resize fill
   black_outside true
   name mov_720
   tile_color 0xad75ffff
   xpos 280
   ypos 149
  }
-push $N239a4800
+push $N27b80800
  Reformat {
   type "to box"
   box_width 2048
   box_height 1080
   box_fixed true
-  resize fill
   black_outside true
   name mov_2k
   tile_color 0x77ff75ff
   xpos 120
   ypos 149
  }
-push $N239a4800
+push $N27b80800
  Reformat {
   type "to box"
   box_width 1024
   box_height 540
   box_fixed true
-  resize fill
   black_outside true
   name mov_half2k
   tile_color 0x77ff75ff
@@ -569,14 +587,52 @@ push $N239a4800
   xpos 280
   ypos 309
  }
-set N239d2800 [stack 0]
+ Remove {
+  channels alpha
+  name Remove2
+  xpos 280
+  ypos 391
+ }
+ Write {
+  file_type mov
+  meta_codec avc1
+  meta_encoder mov32
+  mov32_codec avc1
+  mov32_fps 23.97999573
+  mov32_settings 0000000000000000000000000000019a7365616e0000000100000001000000000000018676696465000000010000000e00000000000000227370746c00000001000000000000000061766331000000000018000003ff000000207470726c000000010000000000000000000003ff0017fae100000001000000246472617400000001000000000000000000000000000000530000010000000100000000156d70736f00000001000000000000000000000000186d66726100000001000000000000000000000000000000187073667200000001000000000000000000000000000000156266726100000001000000000000000001000000166d70657300000001000000000000000001000000002868617264000000010000000000000000000000000000000000000000000000000000000000000016656e647300000001000000000000000000000000001663666c67000000010000000000000000004400000018636d66720000000100000000000000006170706c00000014636c75740000000100000000000000000000001c766572730000000100000000000000000003001c00010000
+  mov32_advanced 1
+  mov32_pixel_format {{0} "default (YCbCr  8-bit 422 (2vuy))" "RGBA  8-bit" "YCbCr  8-bit 422 (2vuy)"}
+  mov64_codec AVdn
+  mov64_dnxhd_codec_profile "DNxHD 422 8-bit 36Mbit"
+  mov64_advanced 1
+  mov64_bitrate 20000
+  mov64_bitrate_tolerance 40000000
+  mov64_quality_min 2
+  mov64_quality_max 31
+  mov64_gop_size 12
+  mov64_b_frames 0
+  checkHashOnRead false
+  name mov_writer
+  xpos 280
+  ypos 525
+  disable true
+  postage_stamp true
+ }
+set N27bcfc00 [stack 0]
  Viewer {
   frame_range 991-1252
+  viewerProcess None
   name Viewer1
-  xpos 920
-  ypos -11
+  xpos -40
+  ypos 1029
  }
-push $N239a4800
+push $N27bcfc00
+ Output {
+  name Output1
+  xpos 280
+  ypos 789
+ }
+push $N27b80800
  Reformat {
   type "to box"
   box_width 240
@@ -597,37 +653,5 @@ push $N239a4800
   ypos 525
   disable true
   postage_stamp true
- }
-push $N239d2800
- Remove {
-  channels alpha
-  name Remove2
-  xpos 280
-  ypos 381
- }
- Write {
-  file_type mov
-  meta_codec AVdn
-  mov32_pixel_format {{0} "default (YCbCrA 8-bit 444 Biased (r408))" "RGBA  8-bit" "YCbCrA 8-bit 444 Biased (r408)" "YCbCr  8-bit 422 (2vuy)"}
-  mov64_codec AVdn
-  mov64_dnxhd_codec_profile "DNxHD 422 8-bit 145Mbit"
-  mov64_advanced 1
-  mov64_bitrate 20000
-  mov64_bitrate_tolerance 40000000
-  mov64_quality_min 2
-  mov64_quality_max 31
-  mov64_gop_size 12
-  mov64_b_frames 0
-  checkHashOnRead false
-  name mov_writer
-  xpos 280
-  ypos 525
-  disable true
-  postage_stamp true
- }
- Output {
-  name Output1
-  xpos 280
-  ypos 709
  }
 end_group
