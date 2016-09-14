@@ -969,11 +969,11 @@ engines:
         current_scene_template: nuke_shot_work
         height: 540
         location:
-          version: v0.3.3.01
+          version: v0.3.3mds
           type: app_store
           name: tk-nuke-quickdailies
         movie_template: shot_quicktime_quick
-        post_hooks: [snapshot_history_post_quickdaily]
+        post_hooks: [snapshot_history_post_quickdaily, nuke_quickdailies_upload_movie]
         sg_version_name_template: nuke_quick_shot_version_name
         width: 1024
         upload_movie: false
