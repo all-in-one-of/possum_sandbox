@@ -15,14 +15,14 @@ define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
                     <page id="Viewer.1"/>
                 </dock>
                 <split size="401"/>
-                <dock id="" activePageId="DAG.1">
+                <dock id="" activePageId="DAG.1" focus="true">
                     <page id="DAG.1"/>
                     <page id="Curve Editor.1"/>
                     <page id="DopeSheet.1"/>
                 </dock>
             </splitter>
             <split size="615"/>
-            <dock id="" activePageId="Properties.1" focus="true">
+            <dock id="" activePageId="Properties.1">
                 <page id="Properties.1"/>
             </dock>
         </splitter>
@@ -31,7 +31,7 @@ define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
 }
 Root {
  inputs 0
- name //productions/boad/Pipeline/BAD16073/possum_sandbox/install/app_store/tk-nuke-quickdailies/v0.3.3mds/resources/quickdailynode.nk
+ name //productions/boad/Pipeline/BAD16073/possum/install/app_store/tk-nuke-quickdailies/v0.3.3mds/resources/quickdailynode.nk
  frame 991
  first_frame 991
  last_frame 1252
@@ -64,14 +64,14 @@ Group {
  inputs 0
  name ShotgunQuickDaily
  tile_color 0xffbf00ff
- label "v3.3 MDS Edition"
+ label "v3.4 MDS Edition"
  note_font Verdana
  selected true
  xpos -40
  ypos -578
  mapsize {0.15 0.15}
  addUserKnob {20 tanktab l "Shotgun Quick Daily"}
- addUserKnob {26 version l "" +STARTLINE T "MDS Quick Daily Tool v3.3 - MDS Edition"}
+ addUserKnob {26 version l "" +STARTLINE T "MDS Quick Daily Tool v3.4 - MDS Edition"}
  addUserKnob {26 ""}
  addUserKnob {26 burninDescription l "" +STARTLINE T "INSTRUCTIONS\nPlease select the type of burnin your require. \n\nShot - Uses our standard font size and film gate.\nAsset - Uses a smaller font size and no gate.\n\nFor Comp review please deliver dailies in Cineon colour space. \n"}
  addUserKnob {26 ""}
@@ -112,7 +112,7 @@ Group {
   xpos 280
   ypos -2491
  }
-set N3740800 [stack 0]
+set N36d0800 [stack 0]
  Dot {
   name Dot3
   xpos 634
@@ -130,7 +130,7 @@ set N3740800 [stack 0]
   xpos -201
   ypos -2039
  }
-set N3741000 [stack 0]
+set N36d1000 [stack 0]
  Reformat {
   format "1920 1080 0 0 1920 1080 1 HD_1080"
   name Reformat2
@@ -138,15 +138,15 @@ set N3741000 [stack 0]
   xpos -41
   ypos -1862
  }
- set C3740c00 [stack 0]
-set N3740c00 [stack 0]
+ set C36d0c00 [stack 0]
+set N36d0c00 [stack 0]
  Dot {
   name Dot8
   xpos -6
   ypos -1769
  }
-push $N3740c00
-push $N3741000
+push $N36d0c00
+push $N36d1000
  Reformat {
   format "2048 1080 0 0 2048 1080 1 2K_DCP"
   name Reformat4
@@ -154,9 +154,9 @@ push $N3741000
   xpos -361
   ypos -1863
  }
- set C3767000 [stack 0]
-set N3767000 [stack 0]
-push $N3767000
+ set C36f7000 [stack 0]
+set N36f7000 [stack 0]
+push $N36f7000
  Dot {
   name Dot5
   xpos -326
@@ -169,7 +169,7 @@ push $N3767000
   xpos -201
   ypos -1694
  }
- set C3766400 [stack 0]
+ set C36f6400 [stack 0]
  FormatCrop {
   name LINE
   label "\[value presets]"
@@ -183,21 +183,21 @@ push $N3767000
   xpos -168
   ypos -1370
  }
-push $N3740800
+push $N36d0800
  Colorspace {
   colorspace_out HSV
   name HSV
   xpos 443
   ypos -2331
  }
-push $N3740800
+push $N36d0800
  Colorspace {
   colorspace_out Cineon
   name Cineon
   xpos 283
   ypos -2331
  }
-push $N3740800
+push $N36d0800
  Colorspace {
   name sRGB
   xpos 123
@@ -216,40 +216,40 @@ push $N3740800
   xpos 278
   ypos -2023
  }
-set N21574c00 [stack 0]
-clone $C3740c00 {
+set N20624c00 [stack 0]
+clone $C36d0c00 {
   xpos 439
   ypos -1862
   selected false
  }
-set N21574800 [stack 0]
+set N20624800 [stack 0]
  Dot {
   name Dot12
   xpos 474
   ypos -1769
  }
-push $N21574800
-push $N21574c00
-clone $C3767000 {
+push $N20624800
+push $N20624c00
+clone $C36f7000 {
   xpos 119
   ypos -1862
   selected false
  }
-set N215abc00 [stack 0]
-push $N215abc00
+set N2065bc00 [stack 0]
+push $N2065bc00
  Dot {
   name Dot9
   xpos 153
   ypos -1769
  }
-clone $C3766400 {
+clone $C36f6400 {
   inputs 4
   xpos 279
   ypos -1693
   selected false
  }
-set N215ab000 [stack 0]
-push $N215ab000
+set N2065b000 [stack 0]
+push $N2065b000
  FormatCrop {
   name BAR1
   label "\[value presets]"
@@ -259,7 +259,7 @@ push $N215ab000
   multiply {0 0 0 0}
   value 1
  }
-push $N215ab000
+push $N2065b000
  Blur {
   inputs 1+1
   size 18
@@ -357,7 +357,7 @@ push $N215ab000
   xpos 918
   ypos -811
  }
-set N24908c00 [stack 0]
+set N25b18c00 [stack 0]
  Text {
   message "\n\nAnim State - Splining"
   font C:/Windows/Fonts/arial.ttf
@@ -375,7 +375,7 @@ set N24908c00 [stack 0]
   xpos 1078
   ypos -651
  }
-push $N24908c00
+push $N25b18c00
  Text {
   message "\n\nAnim State - Blocking"
   font C:/Windows/Fonts/arial.ttf
@@ -393,7 +393,7 @@ push $N24908c00
   xpos 918
   ypos -651
  }
-push $N24908c00
+push $N25b18c00
  Text {
   message "\n\nNo Task State"
   font C:/Windows/Fonts/arial.ttf
@@ -418,7 +418,7 @@ push $N24908c00
   xpos 918
   ypos -491
  }
-set N27b14c00 [stack 0]
+set N2cd34c00 [stack 0]
  Text {
   message "\[value parent.format] (RRT Enabled)\n"
   font C:/Windows/Fonts/arial.ttf
@@ -436,7 +436,7 @@ set N27b14c00 [stack 0]
   xpos 598
   ypos -491
  }
-push $N27b14c00
+push $N2cd34c00
  Text {
   message "\[value parent.format]\n"
   size {{burnInCtrl.fontsize}}
@@ -532,7 +532,7 @@ push $N27b14c00
   xpos 280
   ypos -19
  }
-set N27b80800 [stack 0]
+set N2cda0800 [stack 0]
  Reformat {
   type "to box"
   box_width 1920
@@ -544,7 +544,7 @@ set N27b80800 [stack 0]
   xpos 440
   ypos 149
  }
-push $N27b80800
+push $N2cda0800
  Reformat {
   type "to box"
   box_width 1280
@@ -556,7 +556,7 @@ push $N27b80800
   xpos 280
   ypos 149
  }
-push $N27b80800
+push $N2cda0800
  Reformat {
   type "to box"
   box_width 2048
@@ -568,7 +568,7 @@ push $N27b80800
   xpos 120
   ypos 149
  }
-push $N27b80800
+push $N2cda0800
  Reformat {
   type "to box"
   box_width 1024
@@ -618,7 +618,7 @@ push $N27b80800
   disable true
   postage_stamp true
  }
-set N27bcfc00 [stack 0]
+set N2cdefc00 [stack 0]
  Viewer {
   frame_range 991-1252
   viewerProcess None
@@ -626,13 +626,13 @@ set N27bcfc00 [stack 0]
   xpos -40
   ypos 1029
  }
-push $N27bcfc00
+push $N2cdefc00
  Output {
   name Output1
   xpos 280
   ypos 789
  }
-push $N27b80800
+push $N2cda0800
  Reformat {
   type "to box"
   box_width 240

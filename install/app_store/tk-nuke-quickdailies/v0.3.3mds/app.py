@@ -215,7 +215,7 @@ class NukeQuickDailies(tank.platform.Application):
         try:
             first_view = nuke.views()[0]        
             nuke.executeMultiple( [mov_out, png_out], 
-                                  ([ self._get_first_frame()-1, self._get_last_frame(), 1 ],),
+                                  ([ self._get_first_frame(), self._get_last_frame(), 1 ],),
                                   [first_view]
                                   )
         finally:            
