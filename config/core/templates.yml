@@ -363,32 +363,38 @@ paths:
     nuke_shot_snapshot:
         definition: '@shot_root/work/nuke/snapshots/{Shot}_{Step}_v{version}_r{increment}.nk'
         root_name: 'primary'
+
     # The location of published nuke script files
     nuke_shot_publish:
         definition: '@shot_root/publish/nuke/{Shot}_{Step}_v{version}.nk'
         root_name: 'primary'
+
     # write node outputs
-    nuke_shot_render_mono_dpx:
-        definition: '@shot_root/work/images/v{version}/{Shot}_{nuke.output}_v{version}.{SEQ}.dpx'
+    nuke_shot_render_dpx:
+        definition: '@shot_root/work/nuke/images/v{version}/{Shot}_{Step}_v{version}.{SEQ}.dpx'
         root_name: 'primary'
-    nuke_shot_render_pub_mono_dpx:
-        definition: '@shot_root/publish/elements/v{version}/{Shot}_{nuke.output}_v{version}.{SEQ}.dpx'
+    nuke_shot_render_dpx_publish:
+        definition: '@shot_root/publish/dpx/v{version}/{Shot}_{Step}_v{version}.{SEQ}.dpx'
         root_name: 'primary'
-    nuke_shot_render_stereo:
-        definition: '@shot_root/work/images/v{version}/{Shot}_{nuke.output}_{eye}_v{version}.{SEQ}.exr'
+    nuke_shot_render_exr:
+        definition: '@shot_root/work/nuke/images/v{version}/{Shot}_{Step}_v{version}.{SEQ}.exr'
         root_name: 'primary'
-    nuke_shot_render_pub_stereo:
-        definition: '@shot_root/publish/elements/v{version}/{Shot}_{nuke.output}_{eye}_v{version}.{SEQ}.exr'
+    nuke_shot_render_exr_publish:
+        definition: '@shot_root/publish/exr/v{version}/{Shot}_{Step}_v{version}.{SEQ}.exr'
         root_name: 'primary'
 
-#   Comp Publish
-    nuke_shot_render_pub_online:
+    # MDS - added a new write mode just for artist to send to online
+    nuke_shot_render_online:
+        definition: '@shot_root/work/nuke/online/v{version}/{Shot}_{Step}_v{version}.{SEQ}.exr'
+        root_name: 'primary'
+    nuke_shot_render_online_publish:
         definition: '@editorial_root/publish/online/{Sequence}/{Shot}/v{version}/{Shot}_v{version}.{SEQ}.exr'
         root_name: 'primary'
-    nuke_shot_precomp_exr:
-        definition: '@shot_root/work/nuke/precomps/{Shot}_{Step}_precomp_v{version}.{SEQ}.exr'
-        root_name: 'primary'
 
+    # MDS - added a node for artists to use for precomping working - Currently not working
+    nuke_shot_precomp:
+        definition: '@shot_root/work/nuke/precomps/{nuke.output}/{Shot}_{Step}_{nuke.output}_precomp_v{version}.{SEQ}.exr'
+        root_name: 'primary'
 
     # Review output
     shot_quicktime_quick:
@@ -621,10 +627,10 @@ paths:
         root_name: 'primary'
     # outputs from the Shotgun Write Node for assets
     nuke_asset_render:
-        definition: '@asset_root/work/images/v{version}/{Asset}_{Step}_{nuke.output}_v{version}.{SEQ}.exr'
+        definition: '@asset_root/work/nuke/images/v{version}/{Asset}_{Step}_{nuke.output}_v{version}.{SEQ}.exr'
         root_name: 'primary'
     nuke_asset_render_pub:
-        definition: '@asset_root/publish/elements/v{version}/{Asset}_{Step}_{nuke.output}_v{version}.{SEQ}.exr'
+        definition: '@asset_root/publish/nuke/images/v{version}/{Asset}_{Step}_{nuke.output}_v{version}.{SEQ}.exr'
         root_name: 'primary'
     # review output
     nuke_asset_render_movie:
