@@ -64,17 +64,17 @@ Group {
  inputs 0
  name ShotgunQuickDaily
  tile_color 0xffbf00ff
- label "v3.3.06 MDS Edition"
+ label "v3.3.05 MDS Edition"
  note_font Verdana
  selected true
  xpos -40
  ypos -658
  mapsize {0.15 0.15}
  addUserKnob {20 tanktab l "Shotgun Quick Daily"}
- addUserKnob {26 version l "" +STARTLINE T "Shotgun Quick Daily Tool v3.3.06 - MDS Edition"}
- addUserKnob {26 Sep l "" +STARTLINE}
+ addUserKnob {26 version l "" +STARTLINE T "Shotgun Quick Daily Tool v3.3.05 - MDS Edition"}
+ addUserKnob {26 ""}
  addUserKnob {26 burninDescription l "" +STARTLINE T "INSTRUCTIONS\nPlease select the type of burnin your require. \n\nShot - Uses our standard font size and film gate.\nAsset - Uses a smaller font size and no gate.\n\nFor Comp review please deliver dailies in Cineon colour space. \n"}
- addUserKnob {26 Sep l "" +STARTLINE}
+ addUserKnob {26 ""}
  addUserKnob {26 burninType l "" +STARTLINE T SETUP}
  addUserKnob {4 burninOption l "Burnin Option" M {Shot Asset ""}}
  addUserKnob {4 gateBlur l "Gate Blur" M {On Off ""}}
@@ -82,17 +82,18 @@ Group {
  format "2K DCP ( 2048 x 1080 )"
  addUserKnob {4 colourspace l Colourspace t "sRGB  -  normal picture viewing\nCineon - Extended range for Comp Review\nHSV - Diagnostic colourspace" M {sRGB Cineon HSV "" ""}}
  colourspace Cineon
- addUserKnob {26 Sep l "" +STARTLINE}
+ addUserKnob {26 ""}
  addUserKnob {26 taskStatesTitle l "" +STARTLINE T "TASK STATES"}
  addUserKnob {4 animState l "Animation State" M {None Blocking Spline}}
- addUserKnob {26 Sep l "" +STARTLINE}
- addUserKnob {26 AudioTitle l "" +STARTLINE T AUDIO}
+ addUserKnob {26 ""}
+ addUserKnob {26 Audio l "" +STARTLINE T AUDIO}
  addUserKnob {41 mov32_audiofile l "audio file" T mov_writer.mov32_audiofile}
  addUserKnob {41 mov32_audio_offset l "audio offset" T mov_writer.mov32_audio_offset}
- addUserKnob {26 Sep l "" +STARTLINE}
- addUserKnob {22 createQuickDaily l "Create Quick Daily" T "# have to gracefully support the case when \n# Sgtk is not in the system at all or when \n# running an incompatible version of Sgtk.\nimport nuke\n\n# Set the project resolution at output\ngroup = nuke.thisNode()\n\ngroup.begin()\n\nsel = nuke.toNode(\"Switch1\")\nvalue = sel.knob('which').getValue(True)\n\nif value > 1:  \n    nuke.root()\['format'].setValue(nuke.addFormat(\"HD_1080\"))\n    print \"1080P\"\nelse:\n    nuke.root()\['format'].setValue(nuke.addFormat(\"2K_DCP\"))\n    print \"2K\"\n\ngroup.end()\n\ntry:\n  app = nuke.tk_nuke_quickdailies\n  fn = app.create_daily_v1\nexcept Exception, e:\n  nuke.warning(\"Could not render Shotgun Quickdaily! Most likely Sgtk is not currently active. Message: %s\" % e)\nelse:\n  fn(nuke.thisNode())\n\n" +STARTLINE}
- addUserKnob {26 ButtonDescription l "" +STARTLINE T "\nClicking the above button will:\n\n1. Set your project resolution\n1. Render a quicktime\n2. Place it in the correct location on disk\n3. Send it to Shotgun ready for review"}
- addUserKnob {26 Sep l "" +STARTLINE}
+ addUserKnob {26 ""}
+ addUserKnob {26 ""}
+ addUserKnob {22 doit l "Create Quick Daily" T "# have to gracefully support the case when \n# Sgtk is not in the system at all or when \n# running an incompatible version of Sgtk.\nimport nuke\n\n# Set the project resolution at output\ngroup = nuke.thisNode()\n\ngroup.begin()\n\nsel = nuke.toNode(\"Switch1\")\nvalue = sel.knob('which').getValue(True)\n\nif value > 1:  \n    nuke.root()\['format'].setValue(nuke.addFormat(\"HD_1080\"))\n    print \"1080P\"\nelse:\n    nuke.root()\['format'].setValue(nuke.addFormat(\"2K_DCP\"))\n    print \"2K\"\n\nmyGroup.end()\n\ntry:\n  app = nuke.tk_nuke_quickdailies\n  fn = app.create_daily_v1\nexcept Exception, e:\n  nuke.warning(\"Could not render Shotgun Quickdaily! Most likely Sgtk is not currently active. Message: %s\" % e)\nelse:\n  fn(nuke.thisNode())\n\n" +STARTLINE}
+ addUserKnob {26 ButonDescription l "" +STARTLINE T "\nClicking the above button will:\n\n1. Set your project resolution\n1. Render a quicktime\n2. Place it in the correct location on disk\n3. Send it to Shotgun ready for review"}
+ addUserKnob {26 ""}
 }
  NoOp {
   inputs 0
@@ -113,7 +114,7 @@ Group {
   xpos 280
   ypos -2491
  }
-set N373e400 [stack 0]
+set N380e400 [stack 0]
  Dot {
   name Dot3
   xpos 634
@@ -131,7 +132,7 @@ set N373e400 [stack 0]
   xpos -201
   ypos -2039
  }
-set N373f800 [stack 0]
+set N380f800 [stack 0]
  Reformat {
   format "1920 1080 0 0 1920 1080 1 HD_1080"
   name Reformat2
@@ -139,15 +140,15 @@ set N373f800 [stack 0]
   xpos -41
   ypos -1862
  }
- set C373f400 [stack 0]
-set N373f400 [stack 0]
+ set C380f400 [stack 0]
+set N380f400 [stack 0]
  Dot {
   name Dot8
   xpos -6
   ypos -1769
  }
-push $N373f400
-push $N373f800
+push $N380f400
+push $N380f800
  Reformat {
   format "2048 1080 0 0 2048 1080 1 2K_DCP"
   name Reformat4
@@ -155,9 +156,9 @@ push $N373f800
   xpos -361
   ypos -1863
  }
- set C376f000 [stack 0]
-set N376f000 [stack 0]
-push $N376f000
+ set C3837000 [stack 0]
+set N3837000 [stack 0]
+push $N3837000
  Dot {
   name Dot5
   xpos -326
@@ -170,7 +171,7 @@ push $N376f000
   xpos -201
   ypos -1694
  }
- set C376e400 [stack 0]
+ set C3836400 [stack 0]
  FormatCrop {
   name LINE
   label "\[value presets]"
@@ -184,21 +185,21 @@ push $N376f000
   xpos -168
   ypos -1370
  }
-push $N373e400
+push $N380e400
  Colorspace {
   colorspace_out HSV
   name HSV
   xpos 443
   ypos -2331
  }
-push $N373e400
+push $N380e400
  Colorspace {
   colorspace_out Cineon
   name Cineon
   xpos 283
   ypos -2331
  }
-push $N373e400
+push $N380e400
  Colorspace {
   name sRGB
   xpos 123
@@ -217,40 +218,40 @@ push $N373e400
   xpos 278
   ypos -2023
  }
-set N2b1a4400 [stack 0]
-clone $C373f400 {
+set N227ec400 [stack 0]
+clone $C380f400 {
   xpos 439
   ypos -1862
   selected false
  }
-set N2b1a4000 [stack 0]
+set N227ec000 [stack 0]
  Dot {
   name Dot12
   xpos 474
   ypos -1769
  }
-push $N2b1a4000
-push $N2b1a4400
-clone $C376f000 {
+push $N227ec000
+push $N227ec400
+clone $C3837000 {
   xpos 119
   ypos -1862
   selected false
  }
-set N2d275400 [stack 0]
-push $N2d275400
+set N2485d400 [stack 0]
+push $N2485d400
  Dot {
   name Dot9
   xpos 153
   ypos -1769
  }
-clone $C376e400 {
+clone $C3836400 {
   inputs 4
   xpos 279
   ypos -1693
   selected false
  }
-set N2d274800 [stack 0]
-push $N2d274800
+set N2485c800 [stack 0]
+push $N2485c800
  FormatCrop {
   name BAR1
   label "\[value presets]"
@@ -260,7 +261,7 @@ push $N2d274800
   multiply {0 0 0 0}
   value 1
  }
-push $N2d274800
+push $N2485c800
  Blur {
   inputs 1+1
   size 18
@@ -358,7 +359,7 @@ push $N2d274800
   xpos 918
   ypos -811
  }
-set N2f5a4400 [stack 0]
+set N2ff3c400 [stack 0]
  Text {
   message "\n\nAnim State - Splining"
   font C:/Windows/Fonts/arial.ttf
@@ -376,7 +377,7 @@ set N2f5a4400 [stack 0]
   xpos 1078
   ypos -651
  }
-push $N2f5a4400
+push $N2ff3c400
  Text {
   message "\n\nAnim State - Blocking"
   font C:/Windows/Fonts/arial.ttf
@@ -394,7 +395,7 @@ push $N2f5a4400
   xpos 918
   ypos -651
  }
-push $N2f5a4400
+push $N2ff3c400
  Text {
   message "\n\nNo Task State"
   font C:/Windows/Fonts/arial.ttf
@@ -419,7 +420,7 @@ push $N2f5a4400
   xpos 918
   ypos -491
  }
-set N2f5d6400 [stack 0]
+set N2ff6e400 [stack 0]
  Text {
   message "\[value parent.format] (RRT Enabled)\n"
   font C:/Windows/Fonts/arial.ttf
@@ -437,7 +438,7 @@ set N2f5d6400 [stack 0]
   xpos 598
   ypos -491
  }
-push $N2f5d6400
+push $N2ff6e400
  Text {
   message "\[value parent.format]\n"
   size {{burnInCtrl.fontsize}}
@@ -533,7 +534,7 @@ push $N2f5d6400
   xpos 280
   ypos -19
  }
-set N2f63c000 [stack 0]
+set N2ffd4000 [stack 0]
  Reformat {
   type "to box"
   box_width 1920
@@ -545,7 +546,7 @@ set N2f63c000 [stack 0]
   xpos 440
   ypos 149
  }
-push $N2f63c000
+push $N2ffd4000
  Reformat {
   type "to box"
   box_width 1280
@@ -557,7 +558,7 @@ push $N2f63c000
   xpos 280
   ypos 149
  }
-push $N2f63c000
+push $N2ffd4000
  Reformat {
   type "to box"
   box_width 2048
@@ -569,7 +570,7 @@ push $N2f63c000
   xpos 120
   ypos 149
  }
-push $N2f63c000
+push $N2ffd4000
  Reformat {
   type "to box"
   box_width 1024
@@ -619,7 +620,7 @@ push $N2f63c000
   disable true
   postage_stamp true
  }
-set N30703400 [stack 0]
+set N3105b400 [stack 0]
  Viewer {
   frame_range 991-1252
   viewerProcess None
@@ -627,13 +628,13 @@ set N30703400 [stack 0]
   xpos -40
   ypos 1029
  }
-push $N30703400
+push $N3105b400
  Output {
   name Output1
   xpos 280
   ypos 789
  }
-push $N2f63c000
+push $N2ffd4000
  Reformat {
   type "to box"
   box_width 240
