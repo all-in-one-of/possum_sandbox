@@ -55,3 +55,9 @@ install/app_store/tk-framework-qtwidgets/v2.4.3/python/activity_stream/activity_
 install/app_store/tk-framework-qtwidgets/v2.4.3/framework.pyc
 install/app_store/tk-framework-qtwidgets/v2.4.3/framework.pyc
 *.pyc
+install/app_store/tk-nuke-quickdailies/v0.3.3mds/resources/quickdailynode.nk~
+.idea/misc.xml
+.idea/possum_sandbox.iml
+.idea/workspace.xml
+.idea/modules.xml
+.idea/vcs.xml
