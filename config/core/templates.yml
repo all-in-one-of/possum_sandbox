@@ -59,6 +59,10 @@ keys:
         type: int
     height:
         type: int
+    # Revilo - New group name added
+    grp_name:
+        type: str
+
 
     # Represents the optional output name for frames written by the Shotgun Write Node
     nuke.output:
@@ -241,6 +245,15 @@ paths:
     maya_shot_publish:
         definition: '@shot_root/publish/maya/{Shot}_{Step}_v{version}.{maya_extension}'
         root_name: 'primary'
+    # Revilo - Location of camera publishes
+    maya_shot_camera:
+        definition: '@shot_root/publish/camera/{name}.v{version}.ma'
+        root_name: 'primary'
+    # Revilo - location of shot alembic mesh publishes
+    maya_shot_mesh_alembic_cache:
+        definition: '@shot_root/publish/alembic/[{grp_name}].v{version}.abc'
+        root_name: 'primary'
+
 
 
     #
@@ -450,9 +463,8 @@ paths:
     #
     # Alembic caches
     #
-
     asset_alembic_cache:
-        definition: '@asset_root/publish/caches/{Asset}_{Step}_v{version}.abc'
+        definition: '@asset_root/publish/alembic/{Asset}_{Step}_v{version}.abc'
         root_name: 'primary'
 
 
@@ -511,7 +523,10 @@ paths:
     maya_asset_publish:
         definition: '@asset_root/publish/maya/{Asset}_{Step}_v{version}.{maya_extension}'
         root_name: 'primary'
-
+    # The location of Maya asset alembic publishes
+    maya_asset_mesh_alembic_cache:
+        definition: '@asset_root/publish/alembic/[{grp_name}].v{version}.abc'
+        root_name: 'primary'
 
     #
     # Houdini
