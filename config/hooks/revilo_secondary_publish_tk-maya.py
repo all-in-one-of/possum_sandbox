@@ -213,8 +213,9 @@ class PublishHook(Hook):
         # the current scene together with UV's and face sets for use in Mari.
         alembic_args = ["-renderableOnly",   # only renderable objects (visible and not templated)
                         "-writeFaceSets",    # write shading group set assignments (Maya 2015+)
-                        "-uvWrite"           # write uv's (only the current uv set gets written)
-                        ]        
+                        "-uvWrite",           # write uv's (only the current uv set gets written)
+                        "-worldSpace",       # Revilo - Worldspace export
+                        ]
 
         # find the animated frame range to use:
         start_frame, end_frame = self._find_scene_animation_range()
@@ -228,8 +229,8 @@ class PublishHook(Hook):
         # Revilo - Add custom attributes to export string
         alembic_args.append("-attr uuid -attr alembic -attr subframe -attr version -attr artist -attr notes")
 
-        # Write out only each geo item
-        geoItem = item["selection"]
+        # Write out only each geo item (And strip "|")
+        geoItem = item["selection"].split("|")[1]
         alembic_args.append("-root %s" % (geoItem))
 
         # Set the output path: 
@@ -345,9 +346,10 @@ class PublishHook(Hook):
         # set the alembic args that make the most sense when working with Mari.  These flags
         # will ensure the export of an Alembic file that contains all visible geometry from
         # the current scene together with UV's and face sets for use in Mari.
-        alembic_args = ["-renderableOnly",  # only renderable objects (visible and not templated)
-                        "-writeFaceSets",  # write shading group set assignments (Maya 2015+)
-                        "-uvWrite"  # write uv's (only the current uv set gets written)
+        alembic_args = ["-renderableOnly",   # only renderable objects (visible and not templated)
+                        "-writeFaceSets",    # write shading group set assignments (Maya 2015+)
+                        "-uvWrite",           # write uv's (only the current uv set gets written)
+                        "-worldSpace",       # Revilo - Worldspace export
                         ]
 
         # find the animated frame range to use:
@@ -363,7 +365,7 @@ class PublishHook(Hook):
         alembic_args.append("-attr uuid -attr alembic -attr subframe -attr version -attr artist -attr notes")
 
         # Revilo - Export only the selected camera
-        alembic_args.append("-root %s" % ("|" + cam_name))
+        alembic_args.append("-root %s" % (cam_name))
 
         # Set the output path:
         # Note: The AbcExport command expects forward slashes!
