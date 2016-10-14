@@ -10,12 +10,12 @@ define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
             </dock>
             <split size="1241" stretch="1"/>
             <splitter orientation="2">
-                <split size="571"/>
-                <dock id="" activePageId="Viewer.1">
-                    <page id="Viewer.1"/>
+                <split size="592"/>
+                <dock id="" activePageId="Viewer.2">
                     <page id="Viewer.2"/>
+                    <page id="Viewer.1"/>
                 </dock>
-                <split size="401"/>
+                <split size="380"/>
                 <dock id="" activePageId="DAG.1" focus="true">
                     <page id="DAG.1"/>
                     <page id="Curve Editor.1"/>
@@ -66,27 +66,24 @@ Group {
  inputs 0
  name ShotgunQuickDaily
  tile_color 0xffbf00ff
- label "v3.3.06 MDS Edition"
+ label "v3.3.08 MDS Edition"
  note_font Verdana
  selected true
  xpos -40
- ypos -738
+ ypos -818
  mapsize {0.15 0.15}
  addUserKnob {20 tanktab l "Shotgun Quick Daily"}
- addUserKnob {26 version l "" +STARTLINE T "Shotgun Quick Daily Tool v3.3.06 - MDS Edition"}
+ addUserKnob {26 version l "" +STARTLINE T "Shotgun Quick Daily Tool v3.3.08 - MDS Edition"}
  addUserKnob {26 ""}
  addUserKnob {26 burninDescription l "" +STARTLINE T "INSTRUCTIONS\nPlease select the type of burnin your require. \n\nShot - Uses our standard font size and film gate.\nAsset - Uses a smaller font size and no gate.\n\nFor Comp review please deliver dailies in Cineon colour space. \n"}
  addUserKnob {26 ""}
  addUserKnob {26 burninType l "" +STARTLINE T SETUP}
  addUserKnob {4 burninOption l "Burnin Option" M {Shot Asset ""}}
+ burninOption Asset
  addUserKnob {4 gateBlur l "Gate Blur" M {On Off ""}}
  addUserKnob {4 format l Format M {"half 2K DCP ( 1024 x 540 )" "2K DCP ( 2048 x 1080 )" "720P ( 1280 x 720 )" "1080P (1920 x 1080 )" "" "" "" "" ""}}
  format "2K DCP ( 2048 x 1080 )"
  addUserKnob {4 colourspace l Colourspace t "sRGB  -  normal picture viewing\nCineon - Extended range for Comp Review\nHSV - Diagnostic colourspace" M {sRGB Cineon HSV "" ""}}
- colourspace Cineon
- addUserKnob {26 ""}
- addUserKnob {26 taskStatesTitle l "" +STARTLINE T "TASK STATES"}
- addUserKnob {4 animState l "Animation State" M {None Blocking Spline}}
  addUserKnob {26 ""}
  addUserKnob {26 Audio l "" +STARTLINE T AUDIO}
  addUserKnob {41 mov32_audiofile l "audio file" T mov_writer.mov32_audiofile}
@@ -97,201 +94,280 @@ Group {
  addUserKnob {26 ButonDescription l "" +STARTLINE T "\nClicking the above button will:\n\n1. Set your project resolution\n1. Render a quicktime\n2. Place it in the correct location on disk\n3. Send it to Shotgun ready for review"}
  addUserKnob {26 ""}
 }
- NoOp {
+ BackdropNode {
   inputs 0
-  name burnInCtrl
-  tile_color 0xff5f00ff
-  gl_color 0xff5f00ff
-  xpos 598
-  ypos -651
-  addUserKnob {20 User}
-  addUserKnob {7 fontsize l "Font Size" R 0 100}
-  fontsize {{"\[value root.height]/30 / (switch.which+1)"}}
-  addUserKnob {7 bleed l Bleed R 5 50}
-  bleed 20
+  name BackdropNode1
+  tile_color 0x71c67100
+  label COLOURSPACE
+  note_font_size 42
+  xpos 113
+  ypos -2881
+  bdwidth 422
+  bdheight 482
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode2
+  tile_color 0x8e8e3800
+  label "BURNIN - GATE"
+  note_font_size 42
+  xpos -588
+  ypos -1899
+  bdwidth 1151
+  bdheight 727
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode3
+  tile_color 0x388e8e00
+  label FORMAT
+  note_font_size 42
+  xpos -584
+  ypos -2238
+  bdwidth 1129
+  bdheight 317
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode4
+  tile_color 0x388e8e00
+  label "BURNIN - TEXT"
+  note_font_size 42
+  xpos 268
+  ypos -1048
+  bdwidth 900
+  bdheight 749
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode5
+  tile_color 0x71c67100
+  label "DEFAULT SLATE\n"
+  note_font_size 42
+  xpos -690
+  ypos -755
+  bdwidth 420
+  bdheight 456
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode6
+  tile_color 0xaaaaaa00
+  label OUTPUT
+  note_font_size 42
+  xpos -52
+  ypos -11
+  bdwidth 740
+  bdheight 536
  }
  Input {
   inputs 0
   name Input1
-  xpos 280
-  ypos -2506
- }
-set N36be400 [stack 0]
- Dot {
-  name Dot3
-  xpos 634
-  ypos -2501
+  xpos 285
+  ypos -3046
  }
  Dot {
-  name Dot2
-  xpos 633
-  ypos -1289
+  name Dot6
+  xpos 318
+  ypos -2801
  }
- Constant {
-  inputs 0
-  channels rgb
-  name Constant1
-  xpos -201
-  ypos -2039
+set N761e3400 [stack 0]
+ Colorspace {
+  colorspace_out HSV
+  name HSV
+  xpos 443
+  ypos -2646
  }
-set N36bf800 [stack 0]
+push $N761e3400
+ Colorspace {
+  colorspace_out Cineon
+  name Cineon
+  xpos 283
+  ypos -2726
+ }
+ Gamma {
+  value 0.454
+  name Gamma1
+  xpos 283
+  ypos -2644
+ }
+push $N761e3400
+ Colorspace {
+  name sRGB
+  xpos 123
+  ypos -2646
+ }
+ Switch {
+  inputs 3
+  which {{parent.colourspace}}
+  name lutSwitch
+  xpos 283
+  ypos -2486
+ }
+ Remove {
+  channels alpha
+  name Remove1
+  xpos 286
+  ypos -2334
+ }
+ Dot {
+  name Dot7
+  xpos 319
+  ypos -2150
+ }
+set N761e3000 [stack 0]
  Reformat {
   format "1920 1080 0 0 1920 1080 1 HD_1080"
   name Reformat2
   tile_color 0xffa800ff
-  xpos -41
-  ypos -1862
+  xpos 444
+  ypos -2006
  }
- set C36bf400 [stack 0]
-set N36bf400 [stack 0]
+ set C376f400 [stack 0]
+set N30403c00 [stack 0]
  Dot {
-  name Dot8
-  xpos -6
-  ypos -1769
+  name Dot12
+  selected true
+  xpos 477
+  ypos -1764
  }
-push $N36bf400
-push $N36bf800
+push $N30403c00
+push $N761e3000
  Reformat {
   format "2048 1080 0 0 2048 1080 1 2K_DCP"
   name Reformat4
   tile_color 0xff00b7ff
-  xpos -361
-  ypos -1863
+  xpos 124
+  ypos -2006
  }
- set C36e7000 [stack 0]
-set N36e7000 [stack 0]
-push $N36e7000
+ set C3797000 [stack 0]
+set N30403000 [stack 0]
+push $N30403000
  Dot {
-  name Dot5
-  xpos -326
-  ypos -1769
+  name Dot9
+  selected true
+  xpos 156
+  ypos -1764
  }
  Switch {
   inputs 4
   which {{ShotgunQuickDaily.Switch1.which}}
   name HD_2K_switcher
-  xpos -201
-  ypos -1694
+  selected true
+  xpos 282
+  ypos -1688
  }
- set C36e6400 [stack 0]
+ set C3796400 [stack 0]
+set N30402400 [stack 0]
+ Dot {
+  name Dot3
+  selected true
+  xpos 477
+  ypos -1681
+ }
+ Dot {
+  name Dot2
+  selected true
+  xpos 477
+  ypos -1281
+ }
+ Constant {
+  inputs 0
+  channels rgb
+  name Constant1
+  xpos -360
+  ypos -2349
+ }
+ Dot {
+  name Dot10
+  xpos -327
+  ypos -2160
+ }
+set N761e2800 [stack 0]
+clone $C376f400 {
+  xpos -197
+  ypos -2002
+  selected false
+ }
+set N376f400 [stack 0]
+ Dot {
+  name Dot8
+  selected true
+  xpos -164
+  ypos -1760
+ }
+push $N376f400
+push $N761e2800
+clone $C3797000 {
+  xpos -517
+  ypos -2003
+  selected false
+ }
+set N3797000 [stack 0]
+push $N3797000
+ Dot {
+  name Dot5
+  selected true
+  xpos -484
+  ypos -1760
+ }
+clone $C3796400 {
+  inputs 4
+  xpos -359
+  ypos -1685
+  selected true
+ }
  FormatCrop {
   name LINE
   label "\[value presets]"
-  xpos -201
-  ypos -1622
+  selected true
+  xpos -358
+  ypos -1530
   multiply {1 1 0 0}
   value 1
  }
  Dot {
   name Dot1
-  xpos -168
-  ypos -1370
- }
-push $N36be400
- Colorspace {
-  colorspace_out HSV
-  name HSV
-  xpos 443
-  ypos -2331
- }
-push $N36be400
- Colorspace {
-  colorspace_out Cineon
-  name Cineon
-  xpos 280
-  ypos -2411
- }
-set N2f2bd000 [stack 0]
- Gamma {
-  value 0.454
-  name Gamma1
-  xpos 280
-  ypos -2339
- }
-push $N36be400
- Colorspace {
-  name sRGB
-  xpos 123
-  ypos -2331
- }
- Switch {
-  inputs 3
-  which {{parent.colourspace}}
-  name Switch3
   selected true
-  xpos 278
-  ypos -2171
+  xpos -326
+  ypos -1361
  }
- Remove {
-  channels alpha
-  name Remove1
-  xpos 278
-  ypos -2023
- }
-set N2f2bc400 [stack 0]
-clone $C36bf400 {
-  xpos 439
-  ypos -1862
-  selected false
- }
-set N2f2bc000 [stack 0]
- Dot {
-  name Dot12
-  xpos 474
-  ypos -1769
- }
-push $N2f2bc000
-push $N2f2bc400
-clone $C36e7000 {
-  xpos 119
-  ypos -1862
-  selected false
- }
-set N3135d400 [stack 0]
-push $N3135d400
- Dot {
-  name Dot9
-  xpos 153
-  ypos -1769
- }
-clone $C36e6400 {
-  inputs 4
-  xpos 279
-  ypos -1693
-  selected false
- }
-set N3135c800 [stack 0]
-push $N3135c800
+push $N30402400
+push $N30402400
  FormatCrop {
   name BAR1
   label "\[value presets]"
-  xpos 440
-  ypos -1699
+  selected true
+  xpos 123
+  ypos -1614
   outputview solid
   multiply {0 0 0 0}
   value 1
  }
-push $N3135c800
+push $N30402400
  Blur {
   inputs 1+1
   size 18
   filter quadratic
   name Blur1
-  xpos 440
-  ypos -1539
+  selected true
+  xpos 121
+  ypos -1534
  }
  Switch {
   inputs 2
   which {{parent.gateBlur}}
   name Switch4
-  xpos 278
-  ypos -1531
+  selected true
+  xpos 281
+  ypos -1526
  }
  FormatCrop {
   name BAR
   label "\[value presets]"
-  xpos 278
-  ypos -1461
+  selected true
+  xpos 281
+  ypos -1456
   outputview solid
   multiply {0 0 0 0}
  }
@@ -299,16 +375,20 @@ push $N3135c800
   inputs 2
   operation conjoint-over
   name Merge1
-  xpos 278
-  ypos -1373
+  selected true
+  xpos 281
+  ypos -1368
  }
  Switch {
   inputs 2
   which {{parent.burninOption}}
   name switch
-  xpos 278
-  ypos -1291
+  selected true
+  xpos 281
+  ypos -1286
+  cached true
  }
+set N327efc00 [stack 0]
  Text {
   message ""
   size {{burnInCtrl.fontsize}}
@@ -369,9 +449,9 @@ push $N3135c800
   xpos 918
   ypos -811
  }
-set N346ac400 [stack 0]
+set N327ee000 [stack 0]
  Text {
-  message "\n\nAnim State - Splining"
+  message "\n\nHSV"
   font C:/Windows/Fonts/arial.ttf
   size {{burnInCtrl.fontsize}}
   leading 0.15
@@ -387,9 +467,9 @@ set N346ac400 [stack 0]
   xpos 1078
   ypos -651
  }
-push $N346ac400
+push $N327ee000
  Text {
-  message "\n\nAnim State - Blocking"
+  message "\n\nCineon"
   font C:/Windows/Fonts/arial.ttf
   size {{burnInCtrl.fontsize}}
   leading 0.15
@@ -405,9 +485,9 @@ push $N346ac400
   xpos 918
   ypos -651
  }
-push $N346ac400
+push $N327ee000
  Text {
-  message "\n\nNo Task State"
+  message "\n\nsRGB"
   font C:/Windows/Fonts/arial.ttf
   size {{burnInCtrl.fontsize}}
   leading 0.15
@@ -425,12 +505,12 @@ push $N346ac400
  }
  Switch {
   inputs 3
-  which {{parent.animState}}
-  name SwitchAnimNote
+  which {{parent.colourspace}}
+  name SwitchColourNote
   xpos 918
   ypos -491
  }
-set N346de400 [stack 0]
+set N3281e000 [stack 0]
  Text {
   message "\[value parent.format] (RRT Enabled)\n"
   font C:/Windows/Fonts/arial.ttf
@@ -448,7 +528,7 @@ set N346de400 [stack 0]
   xpos 598
   ypos -491
  }
-push $N346de400
+push $N3281e000
  Text {
   message "\[value parent.format]\n"
   size {{burnInCtrl.fontsize}}
@@ -532,8 +612,8 @@ push $N346de400
  }
  Dot {
   name Dot4
-  xpos -486
-  ypos -6
+  xpos -488
+  ypos -166
  }
  Switch {
   inputs 2
@@ -541,10 +621,45 @@ push $N346de400
   name slate_or_burnin_chooser
   tile_color 0xbc00ffff
   label "Switches to the slate if curr_frame < start_frame for the current scene."
-  xpos 280
-  ypos -19
+  xpos 278
+  ypos -179
  }
-set N34744000 [stack 0]
+set N328b9c00 [stack 0]
+ Reformat {
+  type "to box"
+  box_width 240
+  box_height 170
+  box_fixed true
+  resize fit
+  black_outside true
+  name Reformat3
+  tile_color 0x808080ff
+  xpos 598
+  ypos 69
+ }
+ Write {
+  file_type png
+  checkHashOnRead false
+  name png_writer
+  xpos 598
+  ypos 445
+  disable true
+  postage_stamp true
+ }
+ NoOp {
+  inputs 0
+  name burnInCtrl
+  tile_color 0xff5f00ff
+  gl_color 0xff5f00ff
+  xpos 598
+  ypos -651
+  addUserKnob {20 User}
+  addUserKnob {7 fontsize l "Font Size" R 0 100}
+  fontsize {{"\[value root.height]/30 / (switch.which+1)"}}
+  addUserKnob {7 bleed l Bleed R 5 50}
+  bleed 20
+ }
+push $N328b9c00
  Reformat {
   type "to box"
   box_width 1920
@@ -553,10 +668,10 @@ set N34744000 [stack 0]
   black_outside true
   name mov_1080
   tile_color 0xad75ffff
-  xpos 440
-  ypos 149
+  xpos 438
+  ypos 69
  }
-push $N34744000
+push $N328b9c00
  Reformat {
   type "to box"
   box_width 1280
@@ -565,10 +680,10 @@ push $N34744000
   black_outside true
   name mov_720
   tile_color 0xad75ffff
-  xpos 280
-  ypos 149
+  xpos 278
+  ypos 69
  }
-push $N34744000
+push $N328b9c00
  Reformat {
   type "to box"
   box_width 2048
@@ -577,10 +692,10 @@ push $N34744000
   black_outside true
   name mov_2k
   tile_color 0x77ff75ff
-  xpos 120
-  ypos 149
+  xpos 118
+  ypos 69
  }
-push $N34744000
+push $N328b9c00
  Reformat {
   type "to box"
   box_width 1024
@@ -589,21 +704,21 @@ push $N34744000
   black_outside true
   name mov_half2k
   tile_color 0x77ff75ff
-  xpos -40
-  ypos 149
+  xpos -42
+  ypos 69
  }
  Switch {
   inputs 4
   which {{parent.format}}
   name Switch1
-  xpos 280
-  ypos 309
+  xpos 278
+  ypos 229
  }
  Remove {
   channels alpha
   name Remove2
-  xpos 280
-  ypos 391
+  xpos 278
+  ypos 311
  }
  Write {
   file_type mov
@@ -625,44 +740,22 @@ push $N34744000
   mov64_b_frames 0
   checkHashOnRead false
   name mov_writer
-  xpos 280
-  ypos 525
+  xpos 278
+  ypos 445
   disable true
   postage_stamp true
  }
  Output {
   name Output1
   xpos 280
-  ypos 789
+  ypos 709
  }
-push $N34744000
- Reformat {
-  type "to box"
-  box_width 240
-  box_height 170
-  box_fixed true
-  resize fit
-  black_outside true
-  name Reformat3
-  tile_color 0x808080ff
-  xpos 600
-  ypos 149
- }
- Write {
-  file_type png
-  checkHashOnRead false
-  name png_writer
-  xpos 600
-  ypos 525
-  disable true
-  postage_stamp true
- }
-push $N2f2bd000
+push $N327efc00
  Viewer {
   frame_range 991-1252
   viewerProcess None
   name Viewer1
-  xpos -40
-  ypos 1029
+  xpos -200
+  ypos -11
  }
 end_group
