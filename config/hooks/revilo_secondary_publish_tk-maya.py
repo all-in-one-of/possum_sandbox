@@ -213,7 +213,8 @@ class PublishHook(Hook):
         # the current scene together with UV's and face sets for use in Mari.
         alembic_args = ["-renderableOnly",   # only renderable objects (visible and not templated)
                         "-writeFaceSets",    # write shading group set assignments (Maya 2015+)
-                        "-uvWrite",           # write uv's (only the current uv set gets written)
+                        "-uvWrite",          # write uv's (only the current uv set gets written)
+                        "-stripNamespaces",  # Revilo - Strip namespaces to ensure animation wrapping works
                         "-worldSpace",       # Revilo - Worldspace export
                         ]
 
@@ -348,7 +349,8 @@ class PublishHook(Hook):
         # the current scene together with UV's and face sets for use in Mari.
         alembic_args = ["-renderableOnly",   # only renderable objects (visible and not templated)
                         "-writeFaceSets",    # write shading group set assignments (Maya 2015+)
-                        "-uvWrite",           # write uv's (only the current uv set gets written)
+                        "-uvWrite",          # write uv's (only the current uv set gets written)
+                        "-stripNamespaces",  # Revilo - Strip namespaces to ensure animation wrapping works
                         "-worldSpace",       # Revilo - Worldspace export
                         ]
 
