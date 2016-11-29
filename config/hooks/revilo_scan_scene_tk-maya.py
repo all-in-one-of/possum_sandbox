@@ -84,15 +84,21 @@ class ScanSceneHook(Hook):
                 items.append({"type": "camera", "name": camera, "shutterAngle": shutterAngle})
 
         # Revilo - look for geo to publish based on MDS metadata:
-        for geo in cmds.ls(assemblies=True, long=True):
-            if cmds.ls(geo, dag=True, type="mesh"):
-
-                # Geo found - does it have a tag?
+        for geo in cmds.ls( transforms=True, long=True):
+            #makes a list of shapes with children
+            children = cmds.listRelatives(geo,type="shape")
+            # if the items have children run the mds meta data check
+            if children == None:
                 if cmds.attributeQuery('mdsMetadata', n=geo, exists=True):
-
+                    
                     # Tag found - Let's define a name for geo called <Asset/Shot>_<Step>
-                    geoName = geo.split("_group")[0].strip("|")
-
+                    
+                    # added line to clean out path to name
+                    geopathClean = geo.split("|")[-1].strip("|")
+                    
+                    #then removing _group from end
+                    geoName = geopathClean.split("_group")[0]
+                       
                     # Evaluate shutterAngle attributes
                     subFrame = cmds.getAttr(geo + ".subframe")
 
@@ -105,5 +111,8 @@ class ScanSceneHook(Hook):
 
                     # include this group as a 'mesh_group', record the selection, the name and the shutterAngle
                     items.append({"type": "mesh_group", "selection" : geo, "name": geoName, "shutterAngle": shutterAngle})
+
+
+
 
         return items
